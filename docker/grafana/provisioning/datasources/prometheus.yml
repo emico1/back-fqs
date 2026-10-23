@@ -1,0 +1,14 @@
+# Origen de datos que Grafana crea al arrancar. No se puede editar desde la interfaz.
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    uid: fqs-prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    jsonData:
+      timeInterval: 15s
+      httpMethod: POST

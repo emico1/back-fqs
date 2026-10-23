@@ -1,0 +1,13 @@
+# Tableros que Grafana carga al arrancar desde /etc/grafana/tableros
+apiVersion: 1
+
+providers:
+  - name: familiasquesuman
+    folder: Familias que Suman
+    type: file
+    disableDeletion: true
+    allowUiUpdates: false
+    updateIntervalSeconds: 60
+    options:
+      path: /etc/grafana/tableros
+      foldersFromFilesStructure: false

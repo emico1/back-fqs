@@ -1,0 +1,5 @@
+# Además de lo de producción, lo necesario para correr las pruebas
+-r requirements.txt
+pytest==9.0.0
+httpx==0.28.1
+pip-audit==2.9.0

@@ -1,0 +1,38 @@
+# Proxy con HTTPS automático.
+#  Con un dominio real (FQS_DOMINIO=api.tu-dominio.mx) Caddy pide y renueva solo el
+#  certificado de Let's Encrypt o ZeroSSL. El dominio debe apuntar a este servidor y
+#  los puertos 80 y 443 deben estar abiertos.
+#  Con FQS_DOMINIO=localhost usa su propia autoridad local, útil para probar.
+{
+	# Sin encabezado Server ni páginas de administración expuestas
+	admin off
+}
+
+{$FQS_DOMINIO} {
+	# Las fotos son de máximo 5 MB, nada más grande pasa del proxy
+	request_body {
+		max_size 6MB
+	}
+
+	# Caddy agrega la IP real en X-Forwarded-For y descarta la que mande el cliente,
+	# por eso la API corre con TRUST_PROXY=1. flush_interval -1 deja pasar al instante
+	# los eventos de cupos en vivo (Server-Sent Events).
+	reverse_proxy api:3000 {
+		flush_interval -1
+		header_down -Via
+	}
+
+	header {
+		-Server
+		-Via
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	}
+
+	# Sin compresión a propósito, las respuestas llevan tokens y comprimirlas sobre TLS
+	# abre la puerta a ataques tipo BREACH
+
+	log {
+		output stdout
+		format json
+	}
+}

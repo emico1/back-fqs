@@ -1,0 +1,29 @@
+# Revisa cada semana si hay versiones nuevas o parches de seguridad de las dependencias
+# y abre un pull request por cada una. Los avisos de seguridad llegan aunque no sea lunes.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Monterrey
+    open-pull-requests-limit: 5
+    labels: [dependencias, seguridad]
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    labels: [dependencias]
+
+  - package-ecosystem: docker-compose
+    directory: /
+    schedule:
+      interval: weekly
+    labels: [dependencias]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

@@ -1,0 +1,1 @@
+Copia aquí firebase-cuenta-servicio.json. Esta carpeta no se sube al repositorio.

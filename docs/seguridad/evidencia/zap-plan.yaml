@@ -1,0 +1,47 @@
+env:
+  contexts:
+    - name: fqs
+      urls: ["https://api.fqs.localhost"]
+      includePaths: ["https://api.fqs.localhost/v1/.*"]
+  parameters:
+    failOnError: false
+    progressToStdout: true
+jobs:
+  - type: replacer
+    parameters:
+      deleteAllRules: true
+    rules:
+      - description: sesion
+        matchType: req_header
+        matchString: Authorization
+        matchRegex: false
+        replacementString: "Bearer fqs_at_REDACTADO"
+  - type: openapi
+    parameters:
+      apiFile: docs/openapi.json
+      targetUrl: https://api.fqs.localhost
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 5
+  - type: activeScan
+    parameters:
+      context: fqs
+      maxScanDurationInMins: 60
+      maxRuleDurationInMins: 5
+      threadPerHost: 2
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 5
+  - type: report
+    parameters:
+      template: traditional-html
+      reportDir: zap-salida2
+      reportFile: zap-reporte
+      reportTitle: Escaneo OWASP ZAP de la API de Familias que Suman (FastAPI)
+    risks: [high, medium, low, info]
+  - type: report
+    parameters:
+      template: traditional-json
+      reportDir: zap-salida2
+      reportFile: zap-reporte
+    risks: [high, medium, low, info]

@@ -1,0 +1,106 @@
+# Pruebas de las reglas de alerta.  promtool test rules docker/prometheus/alertas_pruebas.yml
+rule_files:
+  - alertas.yml
+
+evaluation_interval: 1m
+
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'up{job="fqs-api", instance="api:9464"}'
+        values: "1 1 0 0 0"
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: FqsApiCaida
+        exp_alerts: []
+      - eval_time: 4m
+        alertname: FqsApiCaida
+        exp_alerts:
+          - exp_labels:
+              severidad: critica
+              job: fqs-api
+              instance: api:9464
+            exp_annotations:
+              resumen: La API no responde a Prometheus
+              descripcion: Prometheus no ha podido leer las métricas de la API durante más de un minuto.
+
+  - interval: 1m
+    input_series:
+      # 4 fallos por minuto durante 15 minutos
+      - series: 'fqs_inicios_sesion_total{resultado="credenciales"}'
+        values: "0+4x15"
+      - series: 'fqs_inicios_sesion_total{resultado="correcto"}'
+        values: "0+1x15"
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: FqsInicioSesionFallidos
+        exp_alerts: []
+      - eval_time: 15m
+        alertname: FqsInicioSesionFallidos
+        exp_alerts:
+          - exp_labels:
+              severidad: alta
+            exp_annotations:
+              resumen: Muchos inicios de sesión fallidos en 15 minutos
+              descripcion: Posible ataque de diccionario o relleno de credenciales. Revisar la bitácora y los bloqueos por cuenta.
+
+  - interval: 1m
+    input_series:
+      - series: 'fqs_limite_excedido_total{ruta="/v1/auth/login"}'
+        values: "0+10x10"
+      - series: 'fqs_limite_excedido_total{ruta="/v1/catalogo"}'
+        values: "0+1x10"
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: FqsMuchasRespuestas429
+        exp_alerts:
+          - exp_labels:
+              severidad: media
+              ruta: /v1/auth/login
+            exp_annotations:
+              resumen: "Muchas respuestas 429 en /v1/auth/login"
+              descripcion: Una ruta está recibiendo más peticiones de las que permite su límite. Puede ser fuerza bruta o abuso automatizado.
+
+  - interval: 1m
+    input_series:
+      - series: 'fqs_eventos_seguridad_total{accion="refresh_reutilizado"}'
+        values: "0 0 1 1 1"
+      - series: 'fqs_eventos_seguridad_total{accion="login_admin_fallido"}'
+        values: "0 2 4 6 8"
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: FqsRefreshReutilizado
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: FqsRefreshReutilizado
+        exp_alerts:
+          - exp_labels:
+              severidad: alta
+            exp_annotations:
+              resumen: Se reutilizó un refresh token ya rotado
+              descripcion: Posible robo de sesión. La API ya revocó la familia de sesiones, conviene avisar a la cuenta afectada.
+      - eval_time: 4m
+        alertname: FqsAdministracionFallos
+        exp_alerts:
+          - exp_labels:
+              severidad: critica
+            exp_annotations:
+              resumen: Intentos fallidos contra cuentas de administración
+              descripcion: Contraseñas o códigos de segundo factor equivocados en cuentas de administración. Revisar el panel, Seguridad.
+
+  - interval: 1m
+    input_series:
+      # 10 por ciento de errores 5xx durante 10 minutos
+      - series: 'fqs_peticiones_total{ruta="/v1/actividades", metodo="GET", status="200"}'
+        values: "0+90x10"
+      - series: 'fqs_peticiones_total{ruta="/v1/actividades", metodo="GET", status="500"}'
+        values: "0+10x10"
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: FqsErroresServidor
+        exp_alerts:
+          - exp_labels:
+              severidad: alta
+            exp_annotations:
+              resumen: Más del 5 por ciento de las respuestas son errores 5xx
+              descripcion: Revisar la bitácora de la API buscando "Error no controlado" con el requestId.

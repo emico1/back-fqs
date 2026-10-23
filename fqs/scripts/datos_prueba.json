@@ -1,0 +1,744 @@
+{
+  "asociaciones": [
+    {
+      "clave": "raices",
+      "nombre": "Raíces Vivas A.C.",
+      "categoria": "MEDIO_AMBIENTE",
+      "descripcion": "Reforestación urbana y huertos comunitarios para todas las edades.",
+      "mision": "Recuperar las áreas verdes de Monterrey plantando especies nativas junto con las familias de cada colonia, y enseñar a niñas y niños a cuidar el árbol que plantaron hasta que crezca.",
+      "necesidades": "Voluntarios los fines de semana, palas y guantes, y garrafones de agua para riego en temporada de calor.",
+      "familias": 180,
+      "direccion": "Parque Fundidora, Col. Obrera, Monterrey, N.L.",
+      "lat": 25.6785,
+      "lon": -100.2847,
+      "telefono": "+528100000101",
+      "correo": "contacto@raicesvivas.example.org",
+      "verificada": true
+    },
+    {
+      "clave": "generaciones",
+      "nombre": "Generaciones Unidas A.C.",
+      "categoria": "ADULTOS_MAYORES",
+      "descripcion": "Acompañamiento y actividades recreativas en casas hogar para personas mayores.",
+      "mision": "Que ninguna persona mayor pase la semana sin una visita. Organizamos tardes de juegos, lectura y música donde familias completas comparten tiempo con abuelas y abuelos que viven en casas hogar.",
+      "necesidades": "Familias que puedan comprometerse a una visita al mes, juegos de mesa en buen estado y libros de letra grande.",
+      "familias": 95,
+      "direccion": "Col. Obispado, Monterrey, N.L.",
+      "lat": 25.6745,
+      "lon": -100.3392,
+      "telefono": "+528100000102",
+      "correo": "hola@generacionesunidas.example.org",
+      "verificada": true
+    },
+    {
+      "clave": "crecer",
+      "nombre": "Fundación Crecer Juntos",
+      "categoria": "NINOS",
+      "descripcion": "Talleres educativos y espacios seguros para niñas y niños de 5 a 12 años.",
+      "mision": "Brindamos un espacio seguro donde niñas y niños refuerzan lectura, matemáticas y ciencia de forma divertida, y donde sus familias participan como voluntarias en cada taller.",
+      "necesidades": "Voluntarios para apoyo escolar entre semana, libros infantiles y material de papelería.",
+      "familias": 240,
+      "direccion": "Col. Independencia, Monterrey, N.L.",
+      "lat": 25.6589,
+      "lon": -100.3087,
+      "telefono": "+528100000103",
+      "correo": "contacto@crecerjuntos.example.org",
+      "verificada": true
+    },
+    {
+      "clave": "huellitas",
+      "nombre": "Huellitas del Norte A.C.",
+      "categoria": "MASCOTAS",
+      "descripcion": "Rescate, rehabilitación y adopción responsable de perros y gatos.",
+      "mision": "Rescatamos perros y gatos en situación de calle, los rehabilitamos y les buscamos una familia. Las actividades con voluntarios ayudan a socializarlos para que lleguen listos a su nuevo hogar.",
+      "necesidades": "Croquetas, arena para gato, cobijas usadas y familias que puedan dar hogar temporal.",
+      "familias": 130,
+      "direccion": "Col. Valle Verde, Monterrey, N.L.",
+      "lat": 25.7238,
+      "lon": -100.3546,
+      "telefono": "+528100000104",
+      "correo": "adopciones@huellitasdelnorte.example.org",
+      "verificada": true
+    },
+    {
+      "clave": "colores",
+      "nombre": "Colores de Barrio",
+      "categoria": "ARTE_CULTURA",
+      "descripcion": "Murales comunitarios y talleres de arte para recuperar espacios públicos.",
+      "mision": "Transformamos bardas y plazas olvidadas en murales diseñados y pintados por los mismos vecinos, para que cada colonia cuente su propia historia con color.",
+      "necesidades": "Pintura vinílica, brochas y rodillos, y voluntarios con o sin experiencia artística.",
+      "familias": 75,
+      "direccion": "Barrio Antiguo, Centro, Monterrey, N.L.",
+      "lat": 25.6676,
+      "lon": -100.3058,
+      "telefono": "+528100000105",
+      "correo": "taller@coloresdebarrio.example.org",
+      "verificada": false
+    },
+    {
+      "clave": "manos",
+      "nombre": "Manos en Comunidad A.C.",
+      "categoria": "COMUNIDAD",
+      "descripcion": "Banco de alimentos y comedor comunitario para familias en situación vulnerable.",
+      "mision": "Recibimos, clasificamos y entregamos alimentos a familias que más lo necesitan, y mantenemos un comedor comunitario que sirve comidas calientes de lunes a sábado.",
+      "necesidades": "Arroz, frijol, aceite y latería, y voluntarios para armar despensas los viernes por la tarde.",
+      "familias": 320,
+      "direccion": "Col. Topo Chico, Monterrey, N.L.",
+      "lat": 25.7337,
+      "lon": -100.3075,
+      "telefono": "+528100000106",
+      "correo": "voluntarios@manosencomunidad.example.org",
+      "verificada": true
+    }
+  ],
+  "actividades": [
+    {
+      "asociacion": "raices",
+      "titulo": "Reforestación familiar en Parque Fundidora",
+      "corta": "Plantamos árboles nativos en familia.",
+      "descripcion": "Jornada para plantar encinos, anacahuitas y palo blanco en una de las zonas del parque que más sombra necesita. Cada familia adopta un árbol y recibe una guía para darle seguimiento.",
+      "recomendaciones": "Lleva gorra, bloqueador, agua y ropa que se pueda ensuciar. Nosotros ponemos herramientas y guantes.",
+      "semana": 0,
+      "diaSemana": 6,
+      "hora": "08:30",
+      "minutos": 180,
+      "direccion": "Parque Fundidora, acceso por Av. Fundidora, Monterrey, N.L.",
+      "lat": 25.6785,
+      "lon": -100.2847,
+      "cupo": 40,
+      "ocupados": 26,
+      "aptaNinos": true,
+      "edadMinima": null
+    },
+    {
+      "asociacion": "raices",
+      "titulo": "Taller de huerto en casa",
+      "corta": "Aprende a sembrar hortalizas en macetas.",
+      "descripcion": "Taller práctico para armar un pequeño huerto con materiales reciclados. Cada familia se lleva su maceta sembrada con cilantro, rábano o lechuga.",
+      "recomendaciones": "Trae dos botellas de plástico de 2 litros por familia. La tierra y las semillas van por nuestra cuenta.",
+      "semana": 1,
+      "diaSemana": 7,
+      "hora": "10:00",
+      "minutos": 120,
+      "direccion": "Parque España, Col. Obrera, Monterrey, N.L.",
+      "lat": 25.6745,
+      "lon": -100.2985,
+      "cupo": 20,
+      "ocupados": 8,
+      "aptaNinos": true,
+      "edadMinima": 6
+    },
+    {
+      "asociacion": "generaciones",
+      "titulo": "Tarde de lotería con abuelos",
+      "corta": "Juegos de mesa y convivencia en casa hogar.",
+      "descripcion": "Una tarde de lotería, dominó y canciones con las abuelas y abuelos de la casa hogar. Es una actividad tranquila, ideal para que niñas y niños convivan con personas mayores.",
+      "recomendaciones": "Llega 10 minutos antes para el registro. Si alguien de tu familia toca un instrumento, ¡tráelo!",
+      "semana": 0,
+      "diaSemana": 3,
+      "hora": "17:00",
+      "minutos": 120,
+      "direccion": "Col. Obispado, Monterrey, N.L.",
+      "lat": 25.6745,
+      "lon": -100.3392,
+      "cupo": 15,
+      "ocupados": 12,
+      "aptaNinos": true,
+      "edadMinima": 8,
+      "tipo": "visita"
+    },
+    {
+      "asociacion": "generaciones",
+      "titulo": "Lectura en voz alta en casa hogar",
+      "corta": "Compartimos cuentos y crónicas con los residentes.",
+      "descripcion": "Cada voluntario lee en voz alta durante 20 minutos a un pequeño grupo de residentes y después platican sobre la lectura. Damos una capacitación breve al inicio.",
+      "recomendaciones": "Puedes traer tu propio libro o usar los de nuestra biblioteca.",
+      "semana": 1,
+      "diaSemana": 6,
+      "hora": "11:00",
+      "minutos": 120,
+      "direccion": "Col. Obispado, Monterrey, N.L.",
+      "lat": 25.6745,
+      "lon": -100.3392,
+      "cupo": 12,
+      "ocupados": 3,
+      "aptaNinos": false,
+      "edadMinima": 12,
+      "tipo": "visita"
+    },
+    {
+      "asociacion": "crecer",
+      "titulo": "Rally de ciencia para niños",
+      "corta": "Experimentos sencillos en equipos familiares.",
+      "descripcion": "Estaciones de experimentos con volcanes, circuitos y cohetes de agua. Cada familia apoya a un equipo de niñas y niños a completar el recorrido.",
+      "recomendaciones": "Ropa cómoda. Habrá refrigerio para todos los participantes.",
+      "semana": 0,
+      "diaSemana": 6,
+      "hora": "10:00",
+      "minutos": 180,
+      "direccion": "Parque Niños Héroes, Monterrey, N.L.",
+      "lat": 25.7134,
+      "lon": -100.3069,
+      "cupo": 30,
+      "ocupados": 29,
+      "aptaNinos": true,
+      "edadMinima": 5
+    },
+    {
+      "asociacion": "crecer",
+      "titulo": "Cuentacuentos en la biblioteca",
+      "corta": "Lectura en voz alta y manualidades.",
+      "descripcion": "Leemos un cuento con niñas y niños de la fundación y después hacemos una manualidad relacionada con la historia.",
+      "recomendaciones": "Ideal para familias con niñas y niños pequeños.",
+      "semana": 3,
+      "diaSemana": 6,
+      "hora": "11:00",
+      "minutos": 90,
+      "direccion": "Col. Independencia, Monterrey, N.L.",
+      "lat": 25.6589,
+      "lon": -100.3087,
+      "cupo": 20,
+      "ocupados": 0,
+      "aptaNinos": true,
+      "edadMinima": 4
+    },
+    {
+      "asociacion": "huellitas",
+      "titulo": "Paseo de perritos rescatados",
+      "corta": "Sacamos a pasear a los perros del refugio.",
+      "descripcion": "Cada familia pasea a uno o dos perros por el parque mientras el equipo del refugio acompaña. Así los perros se acostumbran a la gente y a la correa antes de su adopción.",
+      "recomendaciones": "Usa tenis y ropa cómoda. Los menores siempre deben ir con un adulto.",
+      "semana": 0,
+      "diaSemana": 7,
+      "hora": "08:00",
+      "minutos": 120,
+      "direccion": "Parque Fundidora, zona de la Nave Lewis, Monterrey, N.L.",
+      "lat": 25.6771,
+      "lon": -100.2846,
+      "cupo": 25,
+      "ocupados": 25,
+      "aptaNinos": true,
+      "edadMinima": 10
+    },
+    {
+      "asociacion": "huellitas",
+      "titulo": "Jornada de baño y cepillado",
+      "corta": "Ayuda a dejar listos a los perros para adopción.",
+      "descripcion": "Bañamos, cepillamos y cortamos uñas a los perros que irán a la feria de adopción del siguiente mes. Te enseñamos cómo manejarlos con seguridad.",
+      "recomendaciones": "Ven con ropa que se pueda mojar y una muda extra.",
+      "semana": 2,
+      "diaSemana": 6,
+      "hora": "09:30",
+      "minutos": 180,
+      "direccion": "Col. Valle Verde, Monterrey, N.L.",
+      "lat": 25.7238,
+      "lon": -100.3546,
+      "cupo": 16,
+      "ocupados": 4,
+      "aptaNinos": false,
+      "edadMinima": 14
+    },
+    {
+      "asociacion": "colores",
+      "titulo": "Mural comunitario en Barrio Antiguo",
+      "corta": "Pintamos juntos un mural diseñado por los vecinos.",
+      "descripcion": "Pintamos el mural que diseñaron los vecinos en los talleres de septiembre. No necesitas experiencia, el equipo traza el diseño y tú ayudas a rellenar.",
+      "recomendaciones": "Lleva ropa vieja y gorra. Proporcionamos pintura, brochas y rodillos.",
+      "semana": 1,
+      "diaSemana": 6,
+      "hora": "16:00",
+      "minutos": 240,
+      "direccion": "Barrio Antiguo, calle Diego de Montemayor, Monterrey, N.L.",
+      "lat": 25.6676,
+      "lon": -100.3058,
+      "cupo": 35,
+      "ocupados": 18,
+      "aptaNinos": true,
+      "edadMinima": 7
+    },
+    {
+      "asociacion": "manos",
+      "titulo": "Armado de despensas",
+      "corta": "Clasificamos y empacamos alimentos donados.",
+      "descripcion": "Clasificamos los alimentos recibidos durante la semana y armamos despensas para 100 familias. Es una actividad en equipo, de pie y en interiores.",
+      "recomendaciones": "Usa zapato cerrado. Actividad recomendada para mayores de 12 años.",
+      "semana": 1,
+      "diaSemana": 5,
+      "hora": "17:30",
+      "minutos": 150,
+      "direccion": "Col. Topo Chico, Monterrey, N.L.",
+      "lat": 25.7337,
+      "lon": -100.3075,
+      "cupo": 30,
+      "ocupados": 11,
+      "aptaNinos": false,
+      "edadMinima": 12
+    },
+    {
+      "asociacion": "manos",
+      "titulo": "Limpieza del Paseo Santa Lucía",
+      "corta": "Recolección de basura a lo largo del paseo.",
+      "descripcion": "Recorremos un tramo del Paseo Santa Lucía recogiendo basura y separando lo reciclable. Al final hacemos un conteo de lo recolectado.",
+      "recomendaciones": "Trae gorra, bloqueador y agua. Ponemos guantes, bolsas y pinzas.",
+      "semana": 2,
+      "diaSemana": 7,
+      "hora": "08:00",
+      "minutos": 180,
+      "direccion": "Paseo Santa Lucía, acceso por Macroplaza, Monterrey, N.L.",
+      "lat": 25.6693,
+      "lon": -100.3069,
+      "cupo": 50,
+      "ocupados": 9,
+      "aptaNinos": true,
+      "edadMinima": null
+    },
+    {
+      "asociacion": "huellitas",
+      "titulo": "Visita al refugio y conoce a los rescatados",
+      "corta": "Recorrido guiado y convivencia con perros y gatos.",
+      "descripcion": "Recorremos el refugio con una persona del equipo que cuenta la historia de cada rescate. Después la familia convive con los perros y gatos que buscan hogar en el área de socialización.",
+      "recomendaciones": "Lava tus manos antes y después. Si tienes alergia a los gatos avísanos al llegar.",
+      "semana": 1,
+      "diaSemana": 7,
+      "hora": "10:30",
+      "minutos": 90,
+      "direccion": "Col. Valle Verde, Monterrey, N.L.",
+      "lat": 25.7238,
+      "lon": -100.3546,
+      "cupo": 18,
+      "ocupados": 6,
+      "aptaNinos": true,
+      "edadMinima": 5,
+      "tipo": "visita"
+    },
+    {
+      "asociacion": "crecer",
+      "titulo": "Tarde de juegos en la fundación",
+      "corta": "Convive con las niñas y niños de la fundación.",
+      "descripcion": "Una tarde de juegos de patio, rompecabezas y pintura con las niñas y niños que asisten a la fundación. La idea es convivir y conocer el espacio, no hace falta preparar nada.",
+      "recomendaciones": "Si quieres puedes llevar un juego de mesa para donarlo al final.",
+      "semana": 2,
+      "diaSemana": 3,
+      "hora": "16:30",
+      "minutos": 120,
+      "direccion": "Col. Independencia, Monterrey, N.L.",
+      "lat": 25.6589,
+      "lon": -100.3087,
+      "cupo": 16,
+      "ocupados": 10,
+      "aptaNinos": true,
+      "edadMinima": 6,
+      "tipo": "visita"
+    },
+    {
+      "asociacion": "manos",
+      "titulo": "Comida compartida en el comedor comunitario",
+      "corta": "Sirve y comparte la mesa con las familias del comedor.",
+      "descripcion": "Las familias visitantes ayudan a servir la comida y después se sientan a comer con las personas que asisten al comedor. Es una visita para conocer de cerca a la comunidad.",
+      "recomendaciones": "Llega 20 minutos antes para lavarte las manos y recibir el mandil.",
+      "semana": 0,
+      "diaSemana": 5,
+      "hora": "13:00",
+      "minutos": 120,
+      "direccion": "Col. Topo Chico, Monterrey, N.L.",
+      "lat": 25.7337,
+      "lon": -100.3075,
+      "cupo": 12,
+      "ocupados": 4,
+      "aptaNinos": true,
+      "edadMinima": 10,
+      "tipo": "visita"
+    }
+  ],
+  "proyectos": [
+    {
+      "clave": "invierno",
+      "asociacion": "generaciones",
+      "titulo": "Invierno sin frío en las casas hogar",
+      "descripcion": "Queremos que las personas mayores de tres casas hogar pasen la temporada de frío bien abrigadas y con algo caliente cada mañana. El proyecto junta las campañas de ropa abrigadora y de bebidas calientes.",
+      "diasDesdeInicio": 15,
+      "diasParaTerminar": 75
+    },
+    {
+      "clave": "comedor",
+      "asociacion": "manos",
+      "titulo": "Comedor comunitario equipado",
+      "descripcion": "El comedor de Topo Chico atiende a 150 personas al día. Este proyecto busca asegurar la despensa del mes y renovar el equipo de cocina para que pueda seguir funcionando todo el año.",
+      "diasDesdeInicio": 10,
+      "diasParaTerminar": null
+    }
+  ],
+  "campanas": [
+    {
+      "asociacion": "generaciones",
+      "proyecto": "invierno",
+      "titulo": "Abrigos para el invierno",
+      "descripcion": "Recolectamos cobijas y ropa abrigadora para las personas mayores de tres casas hogar antes de que llegue el frío.",
+      "diasRestantes": 12,
+      "urgente": true,
+      "articulos": [
+        {
+          "nombre": "Cobijas",
+          "descripcion": "Nuevas o usadas en buen estado, de cama individual o matrimonial.",
+          "unidad": "piezas",
+          "meta": 150,
+          "recibido": 92,
+          "prioridad": "alta"
+        },
+        {
+          "nombre": "Chamarras para adulto",
+          "descripcion": "Tallas medianas y grandes, limpias y sin roturas.",
+          "unidad": "piezas",
+          "meta": 80,
+          "recibido": 31,
+          "prioridad": "urgente"
+        },
+        {
+          "nombre": "Calcetines térmicos",
+          "descripcion": "Nuevos, de preferencia en paquete.",
+          "unidad": "pares",
+          "meta": 200,
+          "recibido": 140,
+          "prioridad": "media"
+        }
+      ],
+      "puntos": [
+        {
+          "nombre": "Centro comunitario Generaciones Unidas",
+          "direccion": "Col. Obispado, Monterrey, N.L.",
+          "horarios": "Lunes a viernes de 9 a 18 h, sábados de 10 a 14 h",
+          "indicaciones": "Entrada lateral, pregunta por la mesa de donativos.",
+          "lat": 25.6745,
+          "lon": -100.3392
+        }
+      ]
+    },
+    {
+      "asociacion": "crecer",
+      "titulo": "Regreso a clases sin pendientes",
+      "descripcion": "Útiles escolares para que 120 niñas y niños empiecen el siguiente ciclo con todo lo necesario.",
+      "diasRestantes": 30,
+      "urgente": false,
+      "articulos": [
+        {
+          "nombre": "Mochilas",
+          "descripcion": "Nuevas, para primaria.",
+          "unidad": "piezas",
+          "meta": 120,
+          "recibido": 47,
+          "prioridad": "alta"
+        },
+        {
+          "nombre": "Cuadernos",
+          "descripcion": "Profesionales de cuadro chico o raya.",
+          "unidad": "piezas",
+          "meta": 600,
+          "recibido": 385,
+          "prioridad": "media"
+        },
+        {
+          "nombre": "Colores",
+          "descripcion": "Cajas de 12 o 24 colores.",
+          "unidad": "cajas",
+          "meta": 300,
+          "recibido": 120,
+          "prioridad": "media"
+        }
+      ],
+      "puntos": [
+        {
+          "nombre": "Fundación Crecer Juntos",
+          "direccion": "Col. Independencia, Monterrey, N.L.",
+          "horarios": "Lunes a viernes de 15 a 19 h",
+          "indicaciones": "Deja tu donativo en recepción.",
+          "lat": 25.6589,
+          "lon": -100.3087
+        }
+      ]
+    },
+    {
+      "asociacion": "huellitas",
+      "titulo": "Croquetas para Huellitas",
+      "descripcion": "El refugio alimenta a más de 60 perros y 25 gatos cada día. Ayúdanos a llenar la bodega para el próximo mes.",
+      "diasRestantes": 21,
+      "urgente": false,
+      "articulos": [
+        {
+          "nombre": "Croqueta para perro adulto",
+          "descripcion": "Cualquier marca, de preferencia costales de 20 kg.",
+          "unidad": "kg",
+          "meta": 400,
+          "recibido": 260,
+          "prioridad": "alta"
+        },
+        {
+          "nombre": "Arena para gato",
+          "descripcion": "Aglutinante o de sílice.",
+          "unidad": "kg",
+          "meta": 100,
+          "recibido": 18,
+          "prioridad": "urgente"
+        },
+        {
+          "nombre": "Cobijas usadas",
+          "descripcion": "Aunque estén viejitas, sirven para las camas de los perros.",
+          "unidad": "piezas",
+          "meta": 60,
+          "recibido": 41,
+          "prioridad": "baja"
+        }
+      ],
+      "puntos": [
+        {
+          "nombre": "Refugio Huellitas del Norte",
+          "direccion": "Col. Valle Verde, Monterrey, N.L.",
+          "horarios": "Sábados y domingos de 9 a 14 h",
+          "indicaciones": "Toca el timbre del portón verde.",
+          "lat": 25.7238,
+          "lon": -100.3546
+        }
+      ]
+    },
+    {
+      "asociacion": "manos",
+      "proyecto": "comedor",
+      "titulo": "Despensas para 100 familias",
+      "descripcion": "Cada despensa alimenta a una familia de cuatro personas durante una semana. Necesitamos completar 100 este mes.",
+      "diasRestantes": 20,
+      "urgente": true,
+      "articulos": [
+        {
+          "nombre": "Arroz",
+          "descripcion": "Bolsas de 1 kg.",
+          "unidad": "kg",
+          "meta": 300,
+          "recibido": 210,
+          "prioridad": "media"
+        },
+        {
+          "nombre": "Frijol",
+          "descripcion": "Bolsas de 1 kg, bayo o negro.",
+          "unidad": "kg",
+          "meta": 300,
+          "recibido": 150,
+          "prioridad": "alta"
+        },
+        {
+          "nombre": "Aceite",
+          "descripcion": "Botellas de 1 litro.",
+          "unidad": "litros",
+          "meta": 150,
+          "recibido": 40,
+          "prioridad": "urgente"
+        }
+      ],
+      "puntos": [
+        {
+          "nombre": "Banco de alimentos Manos en Comunidad",
+          "direccion": "Col. Topo Chico, Monterrey, N.L.",
+          "horarios": "Lunes a sábado de 8 a 16 h",
+          "indicaciones": "Estacionamiento disponible para descargar.",
+          "lat": 25.7337,
+          "lon": -100.3075
+        },
+        {
+          "nombre": "Mesa de acopio en Macroplaza",
+          "direccion": "Macroplaza, frente al Palacio de Gobierno, Monterrey, N.L.",
+          "horarios": "Domingos de 9 a 13 h",
+          "indicaciones": "Busca la carpa naranja.",
+          "lat": 25.6714,
+          "lon": -100.3096
+        }
+      ]
+    },
+    {
+      "asociacion": "generaciones",
+      "proyecto": "invierno",
+      "titulo": "Bebidas calientes para las casas hogar",
+      "descripcion": "Durante las mañanas frías cada casa hogar sirve atole y café a sus residentes. Ayúdanos a surtir la temporada.",
+      "diasRestantes": 40,
+      "urgente": false,
+      "articulos": [
+        {
+          "nombre": "Café soluble",
+          "descripcion": "Frascos de 200 g o más.",
+          "unidad": "frascos",
+          "meta": 60,
+          "recibido": 14,
+          "prioridad": "media"
+        },
+        {
+          "nombre": "Harina para atole",
+          "descripcion": "Sobres o cajas de cualquier sabor.",
+          "unidad": "cajas",
+          "meta": 120,
+          "recibido": 35,
+          "prioridad": "alta"
+        },
+        {
+          "nombre": "Termos",
+          "descripcion": "De 1 litro o más, nuevos.",
+          "unidad": "piezas",
+          "meta": 15,
+          "recibido": 3,
+          "prioridad": "baja"
+        }
+      ],
+      "puntos": [
+        {
+          "nombre": "Centro comunitario Generaciones Unidas",
+          "direccion": "Col. Obispado, Monterrey, N.L.",
+          "horarios": "Lunes a viernes de 9 a 18 h, sábados de 10 a 14 h",
+          "indicaciones": "Entrada lateral, pregunta por la mesa de donativos.",
+          "lat": 25.6745,
+          "lon": -100.3392
+        }
+      ]
+    },
+    {
+      "asociacion": "manos",
+      "proyecto": "comedor",
+      "titulo": "Utensilios para el comedor",
+      "descripcion": "El comedor sirve 150 comidas al día con ollas que ya no dan para más. Buscamos renovar el equipo de cocina.",
+      "diasRestantes": 45,
+      "urgente": false,
+      "articulos": [
+        {
+          "nombre": "Ollas de 20 litros",
+          "descripcion": "De acero inoxidable o aluminio grueso.",
+          "unidad": "piezas",
+          "meta": 8,
+          "recibido": 2,
+          "prioridad": "alta"
+        },
+        {
+          "nombre": "Charolas para servir",
+          "descripcion": "De plástico resistente o acero.",
+          "unidad": "piezas",
+          "meta": 150,
+          "recibido": 64,
+          "prioridad": "media"
+        },
+        {
+          "nombre": "Cucharones",
+          "descripcion": "Grandes, de acero inoxidable.",
+          "unidad": "piezas",
+          "meta": 20,
+          "recibido": 9,
+          "prioridad": "baja"
+        }
+      ],
+      "puntos": [
+        {
+          "nombre": "Banco de alimentos Manos en Comunidad",
+          "direccion": "Col. Topo Chico, Monterrey, N.L.",
+          "horarios": "Lunes a sábado de 8 a 16 h",
+          "indicaciones": "Estacionamiento disponible para descargar.",
+          "lat": 25.7337,
+          "lon": -100.3075
+        }
+      ]
+    }
+  ],
+  "encuestas": [
+    {
+      "actividad": "Reforestación familiar en Parque Fundidora",
+      "momento": "antes",
+      "titulo": "Antes de plantar",
+      "preguntas": [
+        {
+          "texto": "¿Es la primera vez que participan en una reforestación?",
+          "opciones": [
+            "Sí",
+            "No"
+          ]
+        },
+        {
+          "texto": "¿Cuántas personas de tu familia son menores de 12 años?",
+          "opciones": [
+            "Ninguna",
+            "1",
+            "2 o más"
+          ]
+        },
+        {
+          "texto": "¿Hay algo que debamos saber para preparar la actividad?",
+          "opciones": [],
+          "obligatoria": false
+        }
+      ]
+    },
+    {
+      "actividad": "Tarde de lotería con abuelos",
+      "momento": "despues",
+      "titulo": "¿Cómo les fue en la visita?",
+      "preguntas": [
+        {
+          "texto": "¿Volverían a visitar la casa hogar?",
+          "opciones": [
+            "Sí, seguro",
+            "Tal vez",
+            "No"
+          ]
+        },
+        {
+          "texto": "¿Cómo calificarían la organización?",
+          "opciones": [
+            "Muy buena",
+            "Buena",
+            "Regular",
+            "Mala"
+          ]
+        },
+        {
+          "texto": "¿Qué podemos mejorar?",
+          "opciones": [],
+          "obligatoria": false
+        }
+      ]
+    }
+  ],
+  "niveles": [
+    {
+      "nombre": "Familia Semilla",
+      "descripcion": "Dieron su primer paso en la comunidad.",
+      "minimas": 0
+    },
+    {
+      "nombre": "Familia Raíz",
+      "descripcion": "Ya participan con frecuencia.",
+      "minimas": 3
+    },
+    {
+      "nombre": "Embajadores Comunitarios",
+      "descripcion": "Inspiran a otras familias a sumarse.",
+      "minimas": 10
+    }
+  ],
+  "insignias": [
+    {
+      "nombre": "Primera Huella",
+      "descripcion": "Participaron en su primera actividad.",
+      "categoria": null,
+      "requeridas": 1
+    },
+    {
+      "nombre": "5x Naturaleza",
+      "descripcion": "Cinco actividades de medio ambiente.",
+      "categoria": "MEDIO_AMBIENTE",
+      "requeridas": 5
+    },
+    {
+      "nombre": "Cuidado Mayor",
+      "descripcion": "Tres visitas con personas mayores.",
+      "categoria": "ADULTOS_MAYORES",
+      "requeridas": 3
+    },
+    {
+      "nombre": "Amigos Peludos",
+      "descripcion": "Tres actividades con animales rescatados.",
+      "categoria": "MASCOTAS",
+      "requeridas": 3
+    }
+  ]
+}

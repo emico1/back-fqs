@@ -1,0 +1,86 @@
+Monitoreo con Prometheus y Grafana, 2026-10-20
+
+== Pruebas de la API (tests/test_09_metricas.py, dentro de la ejecución completa de pruebas.txt) ==
+tests/test_09_metricas.py::test_el_puerto_de_la_api_no_publica_metricas PASSED
+tests/test_09_metricas.py::test_el_servidor_de_metricas_solo_responde_get_metrics PASSED
+tests/test_09_metricas.py::test_peticiones_por_plantilla_de_ruta_sin_ids PASSED
+tests/test_09_metricas.py::test_metricas_sin_datos_personales PASSED
+tests/test_09_metricas.py::test_inicios_de_sesion_por_resultado PASSED
+tests/test_09_metricas.py::test_eventos_de_seguridad_por_accion PASSED
+tests/test_09_metricas.py::test_respuestas_429_por_ruta PASSED
+tests/test_09_metricas.py::test_conexiones_en_tiempo_real_y_proceso PASSED
+tests/test_09_metricas.py::test_el_puerto_de_metricas_no_puede_ser_el_de_la_api PASSED
+tests/test_09_metricas.py::test_series_de_las_alertas_existen_desde_el_arranque PASSED
+
+== promtool, Prometheus 3.15.0 ==
+$ promtool check rules alertas.yml
+Checking alertas.yml
+  SUCCESS: 9 rules found
+
+$ promtool test rules alertas_pruebas.yml
+  SUCCESS
+
+$ promtool check config prometheus.yml (con la ruta de alertas.yml local)
+Checking prometheus.yml
+  SUCCESS: 1 rule files found
+ SUCCESS: prometheus.yml is valid prometheus config file syntax
+
+Checking alertas.yml
+  SUCCESS: 9 rules found
+
+
+== Prometheus 3.15.0 leyendo la API real (python -m fqs con METRICAS_PUERTO) ==
+Tráfico de prueba, 80 lecturas, 8 rutas inexistentes, 1 inicio de sesión correcto, 4 rutas de administración con cuenta de familia,
+7 contraseñas equivocadas contra la cuenta de administración y 20 inicios de sesión con cuentas inexistentes
+
+Consultas del tablero (estado, series, panel, primeros valores)
+success   1 series  API arriba  [('', 1.0)]
+success   1 series  Tiempo encendida  [('', 49.734)]
+success   1 series  Peticiones por segundo  [('', 0.092)]
+success   1 series  Errores 5xx (5 min)  [('', 0.0)]
+success   1 series  Conexiones en tiempo real  [('', 0.0)]
+success   1 series  Memoria  [('', 76230656.0)]
+success   5 series  Peticiones por segundo por código  [('200', 0.0), ('404', 0.0), ('403', 0.0), ('401', 0.302)]
+success   1 series  Tiempo de respuesta p50, p95 y p99  [('', 0.308)]
+success   1 series  Tiempo de respuesta p50, p95 y p99  [('', 0.494)]
+success   1 series  Tiempo de respuesta p50, p95 y p99  [('', 0.861)]
+success   6 series  Rutas con más tráfico  [('/v1/auth/login', 0.092), ('/v1/salud', 0.0), ('desconocida', 0.0), ('/v1/admin/usuarios', 0.0)]
+success   2 series  Respuestas 4xx y 5xx por ruta  [('/v1/auth/login', 0.06), ('/v1/auth/login', 0.032)]
+success   1 series  Respuestas 429 por ruta  [('/v1/auth/login', 9.471)]
+success  10 series  Inicios de sesión por resultado  [('2fa_fallido', 0.0), ('cuenta_bloqueada', 2.105), ('suspendida', 0.0), ('desafio_2fa', 0.0)]
+success   2 series  Eventos de la bitácora de seguridad  [('acceso_denegado', 4.21), ('login_admin_fallido', 5.262)]
+success   1 series  Fallos de administración (1 h)  [('', 5.262)]
+success   1 series  Accesos denegados (1 h)  [('', 4.21)]
+success   1 series  Tokens reutilizados (24 h)  [('', 0.0)]
+success   1 series  Errores al escribir la bitácora (24 h)  [('', 0.0)]
+success   1 series  Alertas activas  [('', 1.0)]
+success   1 series  CPU del proceso  [('', 0.157)]
+success   1 series  Memoria residente  [('', 76230656.0)]
+success   1 series  Peticiones en curso y descriptores abiertos  [('', 0.0)]
+success   1 series  Peticiones en curso y descriptores abiertos  [('', 12.0)]
+consultas correctas 24 de 24
+
+Reglas cargadas
+regla FqsApiCaida ok inactive
+regla FqsErroresServidor ok inactive
+regla FqsLatenciaAlta ok inactive
+regla FqsMuchasRespuestas429 ok inactive
+regla FqsInicioSesionFallidos ok inactive
+regla FqsAdministracionFallos ok firing
+regla FqsAccesosDenegados ok inactive
+regla FqsRefreshReutilizado ok inactive
+regla FqsBitacoraSinEscribir ok inactive
+
+Destino [('fqs-api', 'up')]
+
+Alertas
+Con la API encendida
+FqsAdministracionFallos firing critica valor 5.1
+
+80 segundos después de detener la API
+FqsApiCaida firing critica valor 0.0
+FqsAdministracionFallos firing critica valor 5.3
+
+== Puerto de la API ==
+$ curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3460/metrics
+404

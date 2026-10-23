@@ -1,0 +1,28 @@
+Panel web detrás de Caddy v2.10.2 con la API FastAPI en ENTORNO=production, 2026-10-20
+
+$ curl -I https://api.fqs.localhost/panel/
+HTTP/2 200 
+cache-control: no-cache
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+content-type: text/html; charset=utf-8
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: same-origin
+permissions-policy: camera=(), microphone=(), geolocation=()
+referrer-policy: no-referrer
+strict-transport-security: max-age=31536000; includeSubDomains
+x-content-type-options: nosniff
+x-frame-options: DENY
+
+$ POST /v1/panel/sesion sin X-FQS-Panel
+{"error":{"codigo":"csrf","mensaje":"Petición rechazada, falta el encabezado del panel"},"requestId":"074e298d-ef81-487b-8be0-8cb530058658"}
+
+$ POST /v1/panel/sesion con Origin de otro sitio
+{"error":{"codigo":"csrf","mensaje":"Petición rechazada, el origen no coincide"},"requestId":"cf5ab7e2-7409-426f-badf-ffa288e036fd"}
+
+$ GET /panel/../pyproject.toml (ruta sin normalizar)
+404
+
+Cookies emitidas al iniciar sesión (tokens recortados)
+set-cookie: __Host-fqs_panel=fqs_at_...; Path=/; Max-Age=1798; HttpOnly; SameSite=Strict; Secure
+set-cookie: __Secure-fqs_panel_r=fqs_rt_...; Path=/v1/panel/sesion; Max-Age=1799; HttpOnly; SameSite=Strict; Secure
+Estado 200, el cuerpo no trae tokens (True)
