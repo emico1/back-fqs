@@ -161,7 +161,7 @@ services:
   # Tableros. Solo se publica en 127.0.0.1, la contraseña de administración sale de .env.docker
   grafana:
     <<: *logs
-    image: grafana/grafana:12.4.11
+    image: grafana/grafana:13.2.4
     restart: unless-stopped
     depends_on: [prometheus]
     environment:
