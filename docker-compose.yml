@@ -121,7 +121,7 @@ services:
   tunel:
     <<: *logs
     profiles: [tunel]
-    image: cloudflare/cloudflared:2026.9.3
+    image: cloudflare/cloudflared:2026.10.1
     restart: unless-stopped
     depends_on: [api]
     command: tunnel --no-autoupdate run
@@ -209,7 +209,7 @@ services:
   tunel-rapido:
     <<: *logs
     profiles: [tunel-rapido]
-    image: cloudflare/cloudflared:2026.9.3
+    image: cloudflare/cloudflared:2026.10.1
     restart: unless-stopped
     depends_on: [api]
     command: tunnel --no-autoupdate --url http://api:3000
