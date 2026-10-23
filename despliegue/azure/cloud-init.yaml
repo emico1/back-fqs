@@ -1,0 +1,78 @@
+#cloud-config
+# Configuración inicial de la máquina de Azure. La usa crear-vm.sh con --custom-data.
+# Actualiza el sistema, endurece SSH, deja actualizaciones de seguridad automáticas,
+# instala Docker desde su repositorio oficial y prepara la carpeta del proyecto.
+
+timezone: America/Mexico_City
+package_update: true
+package_upgrade: true
+packages:
+  - ca-certificates
+  - curl
+  - ufw
+  - fail2ban
+  - unattended-upgrades
+  - unzip
+
+write_files:
+  # Solo llave, nunca contraseña ni root. Los archivos de sshd_config.d se leen en orden y
+  # gana el primer valor, por eso el nombre empieza con 10
+  - path: /etc/ssh/sshd_config.d/10-familiasquesuman.conf
+    permissions: "0644"
+    content: |
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      PermitRootLogin no
+      PubkeyAuthentication yes
+      MaxAuthTries 3
+      LoginGraceTime 30
+      X11Forwarding no
+      AllowAgentForwarding no
+      ClientAliveInterval 300
+      ClientAliveCountMax 2
+
+  # Parches de seguridad todos los días, sin esperar a que alguien entre
+  - path: /etc/apt/apt.conf.d/20auto-upgrades
+    permissions: "0644"
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
+      APT::Periodic::AutocleanInterval "7";
+
+  # Docker sin escalar privilegios, con rotación de logs y sin cortar los contenedores al
+  # actualizar el propio Docker
+  - path: /etc/docker/daemon.json
+    permissions: "0644"
+    content: |
+      {
+        "log-driver": "json-file",
+        "log-opts": { "max-size": "10m", "max-file": "5" },
+        "no-new-privileges": true,
+        "live-restore": true
+      }
+
+runcmd:
+  # Docker desde su repositorio oficial con la llave firmada, como indica su documentación
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
+  - sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" > /etc/apt/sources.list.d/docker.list'
+  - apt-get update
+  - DEBIAN_FRONTEND=noninteractive apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  - systemctl enable --now docker
+  # La cuenta de administración (la primera, uid 1000) usa Docker sin sudo
+  - |
+    usermod -aG docker "$(getent passwd 1000 | cut -d: -f1)"
+  # Firewall del sistema además del grupo de seguridad de Azure. Ojo, los puertos que Docker
+  # publica no pasan por ufw, por eso Grafana se publica solo en 127.0.0.1 y el grupo de
+  # seguridad de Azure es el que cierra 80 y 443
+  - ufw default deny incoming
+  - ufw default allow outgoing
+  - ufw allow 22/tcp
+  - ufw --force enable
+  - systemctl enable --now fail2ban
+  - systemctl restart ssh
+  # Carpeta del proyecto, solo para la cuenta de administración
+  - install -d -m 0750 -o 1000 -g 1000 /opt/familiasquesuman
+
+final_message: "Máquina de Familias que Suman lista después de $UPTIME segundos"

@@ -1,0 +1,74 @@
+sqlmap contra la API FastAPI en modo producción detrás de Caddy (HTTPS), 2026-10-20
+Opciones --level=3 --risk=1 --dbms=PostgreSQL. Sin retraso, la API no tiene límite global
+=== 1 GET /v1/actividades (q, categoria, tipo, orden, limite)
+[13:38:20] [INFO] checking if the target is protected by some kind of WAF/IPS
+[13:38:20] [WARNING] heuristic (basic) test shows that GET parameter 'q' might not be SQL injectable
+[13:38:23] [WARNING] GET parameter 'q' does not seem to be injectable
+[13:38:23] [WARNING] heuristic (basic) test shows that GET parameter 'categoria' might not be SQL injectable
+[13:38:25] [WARNING] GET parameter 'categoria' does not seem to be injectable
+[13:38:25] [WARNING] heuristic (basic) test shows that GET parameter 'tipo' might not be SQL injectable
+[13:38:28] [WARNING] GET parameter 'tipo' does not seem to be injectable
+[13:38:28] [WARNING] heuristic (basic) test shows that GET parameter 'orden' might not be SQL injectable
+[13:38:30] [WARNING] GET parameter 'orden' does not seem to be injectable
+[13:38:30] [WARNING] heuristic (basic) test shows that GET parameter 'limite' might not be SQL injectable
+[13:38:33] [WARNING] GET parameter 'limite' does not seem to be injectable
+[13:38:33] [CRITICAL] all tested parameters do not appear to be injectable.
+[13:38:33] [WARNING] HTTP error codes detected during run:
+400 (Bad Request) - 1573 times
+=== 2 GET /v1/asociaciones (q)
+[13:38:35] [WARNING] heuristic (basic) test shows that GET parameter 'q' might not be SQL injectable
+[13:38:38] [WARNING] GET parameter 'q' does not seem to be injectable
+[13:38:38] [CRITICAL] all tested parameters do not appear to be injectable.
+[13:38:38] [WARNING] HTTP error codes detected during run:
+400 (Bad Request) - 105 times
+=== 3 PUT /v1/yo/comunidad/{id} cuerpo JSON
+[13:38:40] [WARNING] heuristic (basic) test shows that PUT parameter 'JSON nombre' might not be SQL injectable
+[13:38:40] [WARNING] reflective value(s) found and filtering out
+[13:39:01] [WARNING] PUT parameter 'JSON nombre' does not seem to be injectable
+[13:39:02] [WARNING] heuristic (basic) test shows that PUT parameter 'JSON relacion' might not be SQL injectable
+[13:39:22] [WARNING] PUT parameter 'JSON relacion' does not seem to be injectable
+[13:39:22] [WARNING] PUT parameter 'JSON fechaNacimiento' does not appear to be dynamic
+[13:39:22] [WARNING] heuristic (basic) test shows that PUT parameter 'JSON fechaNacimiento' might not be SQL injectable
+[13:39:41] [WARNING] PUT parameter 'JSON fechaNacimiento' does not seem to be injectable
+[13:39:41] [WARNING] PUT parameter 'User-Agent' does not appear to be dynamic
+[13:39:41] [WARNING] heuristic (basic) test shows that PUT parameter 'User-Agent' might not be SQL injectable
+[13:39:55] [WARNING] PUT parameter 'User-Agent' does not seem to be injectable
+[13:39:55] [WARNING] PUT parameter 'Referer' does not appear to be dynamic
+[13:39:55] [WARNING] heuristic (basic) test shows that PUT parameter 'Referer' might not be SQL injectable
+[13:40:08] [WARNING] PUT parameter 'Referer' does not seem to be injectable
+[13:40:08] [CRITICAL] all tested parameters do not appear to be injectable.
+[13:40:08] [WARNING] HTTP error codes detected during run:
+400 (Bad Request) - 637 times
+=== 4 GET /v1/admin/bitacora (accion, limite)
+[13:40:10] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+[13:40:10] [WARNING] heuristic (basic) test shows that GET parameter 'accion' might not be SQL injectable
+[13:40:13] [WARNING] GET parameter 'accion' does not seem to be injectable
+[13:40:13] [WARNING] heuristic (basic) test shows that GET parameter 'limite' might not be SQL injectable
+[13:40:16] [WARNING] GET parameter 'limite' does not seem to be injectable
+[13:40:16] [CRITICAL] all tested parameters do not appear to be injectable.
+[13:40:16] [WARNING] HTTP error codes detected during run:
+400 (Bad Request) - 733 times
+=== 5 POST /v1/auth/login cuerpo JSON
+[14:15:47] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly
+[14:16:47] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is
+[14:18:50] [WARNING] the web server responded with an HTTP error code (429) which could interfere with the results of the tests
+[14:19:54] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+[14:19:57] [CRITICAL] not authorized, try to provide right HTTP authentication type and valid credentials (401).
+[14:19:57] [WARNING] HTTP error codes detected during run:
+429 (Too Many Requests) - 5 times, 401 (Unauthorized) - 2 times
+
+=== 7 POST /v1/reportes, encabezado Idempotency-Key y cuerpo JSON (2026-10-20)
+[22:11:12] [INFO] testing if (custom) POST parameter 'JSON tipo' is dynamic
+[22:11:12] [WARNING] (custom) POST parameter 'JSON tipo' does not appear to be dynamic
+[22:11:12] [WARNING] heuristic (basic) test shows that (custom) POST parameter 'JSON tipo' might not be SQL injectable
+[22:11:12] [INFO] testing for SQL injection on (custom) POST parameter 'JSON tipo'
+[22:11:30] [WARNING] (custom) POST parameter 'JSON tipo' does not seem to be injectable
+[22:11:30] [INFO] testing if (custom) POST parameter 'JSON descripcion' is dynamic
+[22:11:30] [WARNING] (custom) POST parameter 'JSON descripcion' does not appear to be dynamic
+[22:11:30] [WARNING] heuristic (basic) test shows that (custom) POST parameter 'JSON descripcion' might not be SQL injectable
+[22:11:30] [INFO] testing for SQL injection on (custom) POST parameter 'JSON descripcion'
+[22:11:31] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[22:12:31] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[22:31:21] [CRITICAL] not authorized, try to provide right HTTP authentication type and valid credentials (401). If this is intended, try to rerun by providing a valid value for option '--ignore-code'
+[22:31:21] [WARNING] HTTP error codes detected during run:
+400 (Bad Request) - 370 times, 422 (Unprocessable Content) - 27 times, 429 (Too Many Requests) - 23 times, 401 (Unauthorized) - 1 times

@@ -1,0 +1,8 @@
+# Configuración de gitleaks. Usa todas las reglas de fábrica y solo excluye el archivo de
+# pruebas automáticas, que trae contraseñas inventadas para registrar cuentas de prueba.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Contraseñas inventadas de las pruebas automáticas"
+paths = ['''tests/.*\.py''']

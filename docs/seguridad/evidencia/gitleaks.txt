@@ -1,0 +1,12 @@
+gitleaks 8.28.0 sobre el contenido exacto del zip del backend FastAPI entregado, 2026-10-20
+
+Primera pasada sin configuración
+no leaks found
+
+Segunda pasada con .gitleaks.toml, que solo excluye las pruebas automáticas
+scanned ~2720264 bytes (2.72 MB) in 223ms
+no leaks found
+
+App Android
+scanned ~564060 bytes (564.06 KB) in 97.6ms
+no leaks found

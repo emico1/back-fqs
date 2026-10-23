@@ -1,0 +1,52 @@
+# Corre en cada push y pull request, y además cada lunes para enterarse de
+# vulnerabilidades nuevas aunque nadie haya tocado el código.
+name: Pruebas y seguridad
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 13 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: fqs_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_OWNER_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/fqs_test
+      TEST_DATABASE_URL: postgresql://fqs_api_test:prueba-local-fqs@localhost:5432/fqs_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - run: python -m pip install -r requirements-dev.txt
+      # Las pruebas crean el rol fqs_api_test con una contraseña que solo vale en este contenedor
+      - run: python -m pytest -q
+      - name: Dependencias de producción sin vulnerabilidades conocidas
+        run: python -m pip_audit -r requirements.txt --strict
+
+  monitoreo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Valida la configuración de Prometheus, las reglas de alerta y sus pruebas con la misma
+      # versión que usa docker-compose.yml, y que el tablero de Grafana sea JSON válido
+      - name: Reglas de alerta y configuración de Prometheus
+        run: |
+          docker run --rm --entrypoint promtool -v "$PWD/docker/prometheus:/p:ro" -w /p prom/prometheus:v3.15.0 test rules alertas_pruebas.yml
+          docker run --rm --entrypoint promtool -v "$PWD/docker/prometheus:/etc/prometheus:ro" prom/prometheus:v3.15.0 check config /etc/prometheus/prometheus.yml
+      - name: Tablero de Grafana
+        run: python3 -m json.tool docker/grafana/tableros/fqs-api.json > /dev/null

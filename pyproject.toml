@@ -1,0 +1,16 @@
+[project]
+name = "fqs-backend"
+version = "2.0.0"
+description = "API de Familias que Suman (FastAPI sobre PostgreSQL 16)"
+requires-python = ">=3.12"
+readme = "README.md"
+
+[tool.ruff]
+line-length = 150
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "S", "UP", "BLE"]
+# S101 son los assert de las pruebas, S608 son consultas armadas con columnas de listas fijas
+# (los valores siempre van como parámetros)
+ignore = ["S101", "S608"]
