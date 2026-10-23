@@ -1,0 +1,26 @@
+# Análisis estático de seguridad del código Python con CodeQL (inyecciones, rutas de
+# archivos, expresiones regulares peligrosas, uso inseguro de criptografía).
+# Los hallazgos aparecen en la pestaña Security del repositorio.
+name: CodeQL
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 14 * * 1'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  analizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: python, javascript
+          build-mode: none
+          queries: security-extended
+      - uses: github/codeql-action/analyze@v3

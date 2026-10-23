@@ -1,0 +1,87 @@
+# Reglas de alerta. Se ven en Grafana (Alerting) y en la página de alertas de Prometheus.
+# Los umbrales están pensados para el piloto con pocas familias, se ajustan con el uso real.
+
+groups:
+  - name: disponibilidad
+    rules:
+      - alert: FqsApiCaida
+        expr: up{job="fqs-api"} == 0
+        for: 1m
+        labels:
+          severidad: critica
+        annotations:
+          resumen: La API no responde a Prometheus
+          descripcion: Prometheus no ha podido leer las métricas de la API durante más de un minuto.
+
+      - alert: FqsErroresServidor
+        expr: |
+          sum(rate(fqs_peticiones_total{status=~"5.."}[5m]))
+            / clamp_min(sum(rate(fqs_peticiones_total[5m])), 0.001) > 0.05
+        for: 5m
+        labels:
+          severidad: alta
+        annotations:
+          resumen: Más del 5 por ciento de las respuestas son errores 5xx
+          descripcion: Revisar la bitácora de la API buscando "Error no controlado" con el requestId.
+
+      - alert: FqsLatenciaAlta
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le) (rate(fqs_peticion_duracion_segundos_bucket{ruta!="/v1/cupos/stream"}[5m]))
+          ) > 1
+        for: 10m
+        labels:
+          severidad: media
+        annotations:
+          resumen: El percentil 95 del tiempo de respuesta pasa de un segundo
+          descripcion: Revisar la carga de la base de datos y el número de conexiones del pool.
+
+  - name: seguridad
+    rules:
+      - alert: FqsMuchasRespuestas429
+        expr: sum by (ruta) (increase(fqs_limite_excedido_total[10m])) > 50
+        labels:
+          severidad: media
+        annotations:
+          resumen: "Muchas respuestas 429 en {{ $labels.ruta }}"
+          descripcion: Una ruta está recibiendo más peticiones de las que permite su límite. Puede ser fuerza bruta o abuso automatizado.
+
+      - alert: FqsInicioSesionFallidos
+        expr: sum(increase(fqs_inicios_sesion_total{resultado=~"credenciales|cuenta_bloqueada"}[15m])) > 30
+        labels:
+          severidad: alta
+        annotations:
+          resumen: Muchos inicios de sesión fallidos en 15 minutos
+          descripcion: Posible ataque de diccionario o relleno de credenciales. Revisar la bitácora y los bloqueos por cuenta.
+
+      - alert: FqsAdministracionFallos
+        expr: sum(increase(fqs_eventos_seguridad_total{accion=~"login_admin_fallido|2fa_fallido"}[15m])) > 5
+        labels:
+          severidad: critica
+        annotations:
+          resumen: Intentos fallidos contra cuentas de administración
+          descripcion: Contraseñas o códigos de segundo factor equivocados en cuentas de administración. Revisar el panel, Seguridad.
+
+      - alert: FqsAccesosDenegados
+        expr: sum(increase(fqs_eventos_seguridad_total{accion="acceso_denegado"}[15m])) > 10
+        labels:
+          severidad: alta
+        annotations:
+          resumen: Muchos accesos denegados a rutas de administración
+          descripcion: Una cuenta sin permisos está intentando usar rutas de administración.
+
+      - alert: FqsRefreshReutilizado
+        expr: sum(increase(fqs_eventos_seguridad_total{accion="refresh_reutilizado"}[10m])) > 0
+        labels:
+          severidad: alta
+        annotations:
+          resumen: Se reutilizó un refresh token ya rotado
+          descripcion: Posible robo de sesión. La API ya revocó la familia de sesiones, conviene avisar a la cuenta afectada.
+
+      - alert: FqsBitacoraSinEscribir
+        expr: sum(increase(fqs_bitacora_errores_total[10m])) > 0
+        labels:
+          severidad: critica
+        annotations:
+          resumen: Hay eventos de seguridad que no se escribieron en la bitácora
+          descripcion: Revisar la conexión a la base y los permisos del rol de la API sobre bitacora_seguridad.

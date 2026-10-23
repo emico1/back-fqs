@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+uploads/
+.env
+.env.*
+!.env.example
+!.env.docker.example
+*.log
+# Credenciales de Firebase
+firebase-cuenta-servicio.json
+*-firebase-adminsdk-*.json
+respaldos/
+docker/secretos/*
+!docker/secretos/LEEME.txt
+.env.docker
+
+.idea/

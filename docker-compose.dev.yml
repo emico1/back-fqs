@@ -1,0 +1,18 @@
+# Solo para desarrollar con el emulador de Android en la misma computadora.
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml --env-file .env.docker up -d
+#
+# Publica la API por HTTP en 127.0.0.1 puerto 3000, que el emulador ve como 10.0.2.2:3000
+# (la dirección de fqs.api.debug). Solo escucha en la propia computadora, nunca en la red.
+#
+# Corre en modo desarrollo. Sin Brevo, los códigos de verificación y recuperación salen en
+#   docker compose --env-file .env.docker logs api --tail 30
+# y la documentación interactiva queda en http://127.0.0.1:3000/docs
+#
+# En un servidor real no se usa este archivo, la entrada es Caddy o el túnel y el modo es
+# producción.
+services:
+  api:
+    environment:
+      ENTORNO: development
+    ports:
+      - "127.0.0.1:3000:3000"
