@@ -1,6 +1,6 @@
 # Dependencias de producción con versión exacta. Instalar con
 #   python -m pip install -r requirements.txt
-fastapi==0.156.1
+fastapi==0.161.1
 starlette==1.6.0
 pydantic==2.13.5
 uvicorn==0.53.0
