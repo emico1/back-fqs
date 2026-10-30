@@ -135,7 +135,7 @@ services:
   # Guarda las métricas de la API 15 días y evalúa las reglas de alerta. Sin puertos publicados
   prometheus:
     <<: *logs
-    image: prom/prometheus:v3.15.0
+    image: prom/prometheus:v3.15.1
     restart: unless-stopped
     depends_on: [api]
     command:
