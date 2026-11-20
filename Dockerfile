@@ -3,13 +3,13 @@
 # corre con un usuario sin privilegios y con el sistema de archivos de solo lectura (ver
 # docker-compose.yml).
 
-FROM python:3.13-alpine AS dependencias
+FROM python:3.15-alpine AS dependencias
 WORKDIR /app
 COPY requirements.txt ./
 # Entorno virtual aparte, en la imagen final solo se copia esta carpeta
 RUN python -m venv /opt/venv && /opt/venv/bin/pip install --no-cache-dir --require-virtualenv -r requirements.txt
 
-FROM python:3.13-alpine AS api
+FROM python:3.15-alpine AS api
 ENV ENTORNO=production \
     PATH=/opt/venv/bin:$PATH \
     PYTHONDONTWRITEBYTECODE=1 \
